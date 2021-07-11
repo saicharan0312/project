@@ -1,0 +1,120 @@
+{% extends 'Base.html' %}
+
+
+{% block title %}
+<title> Index1</title>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="jumbotron">
+
+    <div class="row">
+
+        <div class="col">
+            <a href="{% url 'accounts:eventform' %}">
+                <button type="button" class="btn btn-primary">
+                    Create Event
+                </button>
+            </a>
+
+            <br>
+            <br>
+
+            {% if messages %}
+
+            {% for message in messages %}
+            <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+
+            {% endif %}
+
+            <form class="form-inline my-2 my-lg-1">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <a href="?title=True"
+               class="btn btn-{% if 'title' in request.GET %}warning{% else %}primary{% endif%}"
+               style="margin-bottom:5px">A-Z</a>
+
+
+            <a href="?pub_date="
+               class="btn btn-{% if 'pub_date' in request.GET %}warning{% else %}primary{% endif%}"
+               style="margin-bottom:5px">pub_date</a>
+
+            <a href="?num_votes=True"
+               class="btn btn-{% if 'num_votes' in request.GET %}warning{% else %}primary{% endif%}"
+               style="margin-bottom:5px">Votes</a>
+
+
+            <ul class="list-group">
+                {% for i in myself %}
+                <li class="list-group-item">
+                    <a href="{% url 'accounts:details' i.id %}">
+                        {{i.id}}
+                        {{i.user}}
+                        {{i.event_name}}
+                        {{i.event_location}}
+                    </a>
+
+                    {{i.num_votes}}
+                    {% if request.user == i.user %}
+                    <a class="float-right" href="{% url 'accounts:edit_event' i.id  %}"><i class="far fa-edit"></i></a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            <br><br>
+
+
+            <div class="pagination">
+                <span class="step-links">
+        {% if myself.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ myself.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+                   Page {{ myself.number }} of {{ myself.paginator.num_pages }}.
+        </span>
+
+        {% if myself.has_next %}
+            <a href="?page={{ myself.next_page_number }}">next</a>
+            <a href="?page={{ myself.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+            </div>
+
+
+            <ul class="list-group">
+                {% for i in others %}
+                <li class="list-group-item">
+                    <a href="">
+                        {{i.id}}
+                        {{i.user}}
+                        {{i.event_name}}
+                        {{i.event_location}}
+                    </a>
+                    <a href="{% url 'accounts:event_register'  %}" class="float-right">
+                        <button type="button" class="btn btn-primary">Register</button>
+                    </a>
+
+                </li>
+                {% endfor %}
+            </ul>
+            <br>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

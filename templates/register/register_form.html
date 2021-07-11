@@ -1,0 +1,133 @@
+{% extends 'Base.html' %}
+
+
+{% block content %}
+
+<h2>Select the category</h2>
+
+<form action="{% url 'accounts:Register'%}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+
+    {% if gender == 1  %}
+    <input type="radio" id="cool" name="gender"  checked  value="male" onclick="this.form.submit()"> Individual
+        <input type="radio"  name="gender" value="female" onclick="this.form.submit()"> Corporate
+
+    {%elif gender == 0 %}
+            <input type="radio" id="cool" name="gender"   value="male" onclick="this.form.submit()"> Individual
+
+    <input type="radio"  name="gender"  checked value="female" onclick="this.form.submit()"> Corporate
+
+    {% endif %}
+
+</form>
+
+
+{% if form %}
+<form action=" {% url 'accounts:Register' %} " method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    {% if gender == 0 %}
+    <b>NetWort(>5 Cr.):</b><input type="radio" name="worth" value="Yes" checked> Yes
+            <input type="radio" name="worth" value="No"> No<br>
+    {% endif %}
+    <input type="submit" >
+</form>
+
+{% endif %}
+
+<p> {{errors}} </p>
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<h2>Select the category</h2>
+
+<form action="{% url 'accounts:Register'%}" method="post">
+{% csrf_token %}
+    {% if gender == 1  %}
+    <input type="radio" id="cool" name="gender"  checked  value="male" onclick="this.form.submit()"> Male
+        <input type="radio"  name="gender" value="female" onclick="this.form.submit()"> Female
+
+    {%elif gender == 0 %}
+            <input type="radio" id="cool" name="gender"   value="male" onclick="this.form.submit()"> Male
+
+    <input type="radio"  name="gender"  checked value="female" onclick="this.form.submit()"> Female
+
+    {% else %}
+       <input type="radio" id="cool" name="gender"  value="male" onclick="this.form.submit()"> Male
+        <input type="radio"  name="gender" value="female" onclick="this.form.submit()"> Female
+
+    {% endif %}
+</form>
+
+
+<script>
+
+
+
+</script>
+
+
+
+
+<p id="demo"></p>
+
+
+
+
+
+
+
+
+
+{% if form %}
+<form action=" {% url 'accounts:Register' %} " method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" >
+</form>
+
+{% endif %}
+
+
+<p> {{gender}}</p>
+
+-->
+
+
+
+

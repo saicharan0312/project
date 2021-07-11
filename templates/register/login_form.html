@@ -1,0 +1,72 @@
+
+
+{% extends 'Base.html' %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="container">
+<h2>Select the category</h2>
+
+    <form action="{% url 'accounts:Login'%}" method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+     {% if gender == 1  %}
+        <input type="radio" id="cool" name="gender"  checked  value="male" onclick="this.form.submit()"> Individual
+        <input type="radio"  name="gender" value="female" onclick="this.form.submit()"> Corporate
+    {% elif gender == 0 %}
+        <input type="radio" id="cool" name="gender"   value="male" onclick="this.form.submit()"> Individual
+        <input type="radio"  name="gender"  checked value="female" onclick="this.form.submit()"> Corporate
+    {% endif %}
+
+</form>
+
+<form action="{% url 'accounts:Login' %}" method="post">{% csrf_token %}
+
+  <div class="form-group">
+
+      {% if gender == 0 %}
+           <label for="exampleInputEmail1">CIN</label>
+          <input type="text" class="form-control"  name='cin' placeholder="Enter CIN ">
+
+      {% endif %}
+    <label for="exampleInputEmail1">User name</label>
+    <input type="text" class="form-control"  name='username' placeholder="Enter username ">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+{% endblock %}
+
+<!----
+<form action="{% url 'accounts:Login'%}" method="post">
+{% csrf_token %}
+    {% if gender == 1  %}
+    <input type="radio" id="cool" name="gender"  checked  value="male" onclick="this.form.submit()"> Individual
+        <input type="radio"  name="gender" value="female" onclick="this.form.submit()"> Corporate
+
+    {%elif gender == 0 %}
+            <input type="radio" id="cool" name="gender"   value="male" onclick="this.form.submit()"> Individual
+
+    <input type="radio"  name="gender"  checked value="female" onclick="this.form.submit()"> Corporate
+
+    {% else %}
+       <input type="radio" id="cool" name="gender"  value="male" onclick="this.form.submit()"> Male
+        <input type="radio"  name="gender" value="female" onclick="this.f/polls/orm.submit()"> Female
+
+    {% endif %}
+</form>
+
+
+---!>

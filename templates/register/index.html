@@ -1,0 +1,93 @@
+
+{% extends 'Base.html' %}
+
+{% block content %}
+
+<div class="jumbotron">
+
+    <div class="row">
+
+     <div class="col">
+      <a href="{% url 'accounts:eventform' %}">
+      <button type="button" class="btn btn-primary">
+          Create Event
+      </button>
+
+  </a>
+
+     <br>
+     <br>
+
+{% if messages %}
+
+    {% for message in messages %}
+<div {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+     {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    {% endfor %}
+
+{% endif %}
+         <ul class="list-group">
+ {% for i in myself %}
+             <li class="list-group-item" >
+     <a href="{% url 'accounts:details' %}" >
+         {{i.id}}
+       {{i.user}}
+       {{i.event_name}}
+    {{i.event_location}}
+         </a>
+     {{i.num_votes}}
+ {% if request.user == i.user %}
+ <a  class="float-right" href= "{% url 'accounts:edit_event' i.id  %}" >   <i class="far fa-edit"></i>   </a>
+                 {% endif %}
+             </li>
+  {% endfor %}
+             </ul>
+<br><br>
+               <div class="pagination">
+    <span class="step-links">
+        {% if myself.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ myself.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ myself.number }} of {{ myself.paginator.num_pages }}.
+        </span>
+
+        {% if myself.has_next %}
+            <a href="?page={{ myself.next_page_number }}">next</a>
+            <a href="?page={{ myself.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+
+
+
+         <ul class="list-group">
+ {% for i in others %}
+             <li class="list-group-item" >
+     <a href="" >
+       {{i.user}}
+       {{i.event_name}}
+    {{i.event_location}}
+         </a>
+<a href="" class = "float-right" ><button type="button" class="btn btn-primary">Register</button></a>
+
+             </li>
+  {% endfor %}
+             </ul>
+
+<br>
+
+</div>
+    </div>
+</div>
+
+{% endblock %}
+

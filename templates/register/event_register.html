@@ -1,0 +1,19 @@
+{% extends 'Base.html' %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <form action="{% url 'accounts:event_register' %}" method ="POST">
+        {% csrf_token %}
+
+        {{form.as_p}}
+         <input type="submit">
+
+           </form>
+</div>
+
+
+{% endblock %}
+
